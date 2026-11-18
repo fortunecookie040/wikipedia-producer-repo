@@ -1,9 +1,9 @@
 name: test
 
 on:
-  push:
+  push: #pushes that has a tag
     tags:
-      - "[0-9]+.[0-9]+"
+      - "[0-9]+.[0-9]+"   #only takes number.number
 
 jobs:
   test:
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
-          cache: pipenv
+          cache: pipenv  #uses pip env for u
 
       - name: Install dependencies
         run: |
@@ -25,17 +25,17 @@ jobs:
           pipenv sync --dev
 
       - name: Unit tests
-        run: pipenv run pytest -m "not kafka" -v
+        run: pipenv run pytest -m "not kafka" -v  #run not kafka first
 
       - name: Start Redpanda
-        run: docker compose -f compose.test.yaml up -d --wait
+        run: docker compose -f compose.test.yaml up -d --wait    #run mini docker test
 
       - name: Integration tests
-        run: pipenv run pytest -m kafka -v
+        run: pipenv run pytest -m kafka -v   #run it with kafka
 
       # End-to-end against the live Wikimedia stream. Non-blocking, since an
       # outage there shouldn't fail the build.
-      - name: Smoke test (live stream, 20 events)
+      - name: Smoke test (live stream, 20 events)   #smoke screen jsut 20 events, small number
         continue-on-error: true
         timeout-minutes: 3
         env:
