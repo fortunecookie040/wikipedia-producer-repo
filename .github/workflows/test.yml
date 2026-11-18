@@ -1,9 +1,7 @@
 name: test
 
 on:
-  push: #pushes that has a tag
-    tags:
-      - "[0-9]+.[0-9]+"   #only takes number.number
+  workflow_call:   # lets docker.yml run the tests before building (no standalone trigger)
 
 jobs:
   test:

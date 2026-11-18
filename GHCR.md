@@ -9,7 +9,7 @@ To containerize `wikipedia-producer.py` in your own repo, you need a `Dockerfile
 This workflow does four things:
 - It runs when you push a version tag such as `1.1`, `1.2` or `1.35`. Ordinary commits don't trigger a build.
 - It runs the tests in `test.yml` first. If they fail, nothing is built or pushed.
-- It pushes the image as `ghcr.io/<your-username>/wikipedia-producer`, tagged with that version and with `latest`.
+- It pushes the image as `ghcr.io/fortunecookie040/wikipedia-producer`, tagged with that version and with `latest`.
 - It builds for both `linux/amd64` (Intel/AMD machines, most cloud servers) and `linux/arm64` (Apple Silicon Macs, Raspberry Pi, AWS Graviton).
 
 First, make `test.yml` callable from another workflow. Replace its `on:` block with:
